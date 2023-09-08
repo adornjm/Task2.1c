@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        /* Add your CSS styles here for aesthetics and user-friendliness */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .app {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .todo-list {
+            list-style: none;
+            padding: 0;
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+        .todo-item.completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+        .delete-button {
+            background-color: #f44336;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="app">
+        <h1>Todo App</h1>
+        <input type="text" v-model="newTodo" @keyup.enter="addTodo" placeholder="Add a new task">
+        <ul class="todo-list">
+            <li v-for="(todo, index) in todos" :key="index" :class="{ completed: todo.completed }">
+                {{ todo.text }}
+                <button class="delete-button" @click="deleteTodo(index)">Delete</button>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.20/dist/vue.global.min.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    newTodo: "",
+                    todos: []
+                };
+            },
+            methods: {
+                addTodo() {
+                    if (this.newTodo.trim() !== "") {
+                        this.todos.push({ text: this.newTodo, completed: false });
+                        this.newTodo = "";
+                    }
+                },
+                deleteTodo(index) {
+                    this.todos.splice(index, 1);
+                }
+            }
+        });
+
+        app.mount("#app");
+    </script>
+</body>
+</html>

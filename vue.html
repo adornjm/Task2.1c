@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 3 Experimentation</title>
+    <!-- Include Vue.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.20/dist/vue.global.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Conditional Rendering</h1>
+
+        <!-- v-if and v-else example -->
+        <p v-if="showMessage">This message is shown using v-if.</p>
+        <p v-else>This message is shown using v-else.</p>
+
+        <!-- v-show example -->
+        <p v-show="showMessage">This message is shown using v-show.</p>
+
+        <!-- v-for example -->
+        <ul>
+            <li v-for="(item, index) in items" :key="index">{{ item }}</li>
+        </ul>
+
+        <!-- v-if with v-for example -->
+        <div v-for="item in itemsWithCondition" :key="item.id">
+            <p v-if="item.show">{{ item.text }}</p>
+        </div>
+
+        <h1>Form Input Handling</h1>
+
+        <!-- v-model example -->
+        <input type="text" v-model="inputValue">
+        <p>{{ inputValue }}</p>
+    </div>
+
+    <script>
+        // Create a Vue 3 app
+        const app = Vue.createApp({
+            data() {
+                return {
+                    showMessage: true,
+                    items: ['Item 1', 'Item 2', 'Item 3'],
+                    itemsWithCondition: [
+                        { id: 1, text: 'Show me', show: true },
+                        { id: 2, text: 'Hide me', show: false },
+                    ],
+                    inputValue: '',
+                };
+            },
+        });
+
+        // Mount the app to an element with the id "app"
+        app.mount('#app');
+    </script>
+</body>
+</html>
